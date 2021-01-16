@@ -1,42 +1,44 @@
-const { merge } = require('webpack-merge');
-const path = require("path");
 
-const { getMultyPage, openPageConfig } = require("./build/config");
-// let front = require("./build/webpackConfig/webpack.front.pro.js");
-// let manage = require("./build/webpackConfig/webpack.manage.pro.js");
-// const devConfig = require("./build/webpackConfig/webpack.dev.js");
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { getMultyPage, getOpenPage } = require("./build/config");
 // 默认打包H5
-// let flag = JSON.parse(process.env.BUILD_CONFIG);
 const config = getMultyPage();
+
 module.exports = {
-    pages: config.pages,
+    publicPath:"/",
     outputDir: config.outputDir,
-    // resolve: {
-    //     alias: {
-    //         "@": path.resolve(__dirname, "../../src"),
-    //         "frontPage": path.resolve(__dirname, "../../src/frontPage"),
-    //         "managePage": path.resolve(__dirname, "../../src/managePage"),
-    //         "front": path.resolve(__dirname, "../../src/frontPage/src"),
-    //         "manage": path.resolve(__dirname, "../../src/managePage/src"),
-    //     }
-    // },
+    pages: config.pages,
+    devServer: {
+        // proxy: {
+        //     '/api': {
+        //       target: '',
+        //       ws: true,
+        //       changeOrigin: true
+        //     }
+        // },
+        before(app){
+            console.log(app,"app==============================")
+        },
+        contentBase: path.resolve(__dirname, "../dist"),
+        host: "localhost",
+        port: "8080",
+        hotOnly: true,
+        open: true, //启动服务自动打开页面
+        openPage: getOpenPage(), //启动服务自动打开的指定页面， 可自行控制
+        progress: true, //开启进度条
+    },
+    configureWebpack: {
+        plugins: [
+            new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, "./dist/**/*")] })
+        ]
+    },
+    chainWebpack: config => {
+        config.resolve.alias
+        .set('@', path.resolve(__dirname, "../../src"))
+        .set("frontPage", path.resolve(__dirname, "./src/frontPage"))
+        .set("managePage", path.resolve(__dirname, "./src/managePage"))
+        .set("front", path.resolve(__dirname, "./src/frontPage/src"))
+        .set("manage", path.resolve(__dirname, "./src/managePage/src"));
+    }
 }
-// let config = {};
-// if (process.env.NODE_ENV == "development") {
-//     config = devConfig;
-// } else if ((process.env.NODE_ENV == "production")) {
-//     front = merge(baseConfig, front);
-//     manage = merge(baseConfig, manage);
-//     config = flag == "front" ? front : flag == "manage" ? manage : [front, manage];
-// }
-// module.exports = {
-//     pages: {
-//         front: {
-//             entry: "./src/frontPage/main.ts",
-//             template: './public/index.html',
-//             // 在 dist/index.html 的输出
-//             filename: 'index.html',
-//         }
-//     },
-//     outputDir: "dist/frontPage"
-// };
