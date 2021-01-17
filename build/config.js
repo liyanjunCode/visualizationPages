@@ -3,8 +3,6 @@ const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // 用于区分打包， 如果是front只打包前台页面，manage打包后台页面，否则两个一起打包
-
-// const flag = JSON.parse(process.env.BUILD_CONFIG);
 let flag = "front";
 const dirPath = path.resolve(__dirname, "./build.json");
 if (fs.existsSync(dirPath)) {

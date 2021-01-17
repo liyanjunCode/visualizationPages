@@ -10,6 +10,7 @@ module.exports = {
     outputDir: config.outputDir,
     pages: config.pages,
     devServer: {
+
         // proxy: {
         //     '/api': {
         //       target: '',
@@ -18,7 +19,6 @@ module.exports = {
         //     }
         // },
         before(app){
-            console.log(app,"app==============================")
         },
         contentBase: path.resolve(__dirname, "../dist"),
         host: "localhost",
