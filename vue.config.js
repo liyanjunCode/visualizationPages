@@ -40,6 +40,7 @@ module.exports = {
             .set("managePage", path.resolve(__dirname, "./src/managePage"))
             .set("front", path.resolve(__dirname, "./src/frontPage/src"))
             .set("manage", path.resolve(__dirname, "./src/managePage/src"));
+        config.resolve.extensions.add('tsx');
         // 添加自定义模块库
         // config.resolve.modules.prepend(path.resolve(__dirname, 'local_modules'));
     }
