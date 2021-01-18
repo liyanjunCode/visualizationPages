@@ -6,7 +6,7 @@ const { getMultyPage, getOpenPage } = require("./build/config");
 const config = getMultyPage();
 
 module.exports = {
-    publicPath:"/",
+    publicPath: "/",
     outputDir: config.outputDir,
     pages: config.pages,
     devServer: {
@@ -18,7 +18,7 @@ module.exports = {
         //       changeOrigin: true
         //     }
         // },
-        before(app){
+        before (app) {
         },
         contentBase: path.resolve(__dirname, "../dist"),
         host: "localhost",
@@ -35,10 +35,12 @@ module.exports = {
     },
     chainWebpack: config => {
         config.resolve.alias
-        .set('@', path.resolve(__dirname, "../../src"))
-        .set("frontPage", path.resolve(__dirname, "./src/frontPage"))
-        .set("managePage", path.resolve(__dirname, "./src/managePage"))
-        .set("front", path.resolve(__dirname, "./src/frontPage/src"))
-        .set("manage", path.resolve(__dirname, "./src/managePage/src"));
+            .set('@', path.resolve(__dirname, "../../src"))
+            .set("frontPage", path.resolve(__dirname, "./src/frontPage"))
+            .set("managePage", path.resolve(__dirname, "./src/managePage"))
+            .set("front", path.resolve(__dirname, "./src/frontPage/src"))
+            .set("manage", path.resolve(__dirname, "./src/managePage/src"));
+        // 添加自定义模块库
+        // config.resolve.modules.prepend(path.resolve(__dirname, 'local_modules'));
     }
 }
