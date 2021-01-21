@@ -35,11 +35,12 @@ module.exports = {
     },
     chainWebpack: config => {
         config.resolve.alias
-            .set('@', path.resolve(__dirname, "../../src"))
+            .set('@', path.resolve(__dirname, "./src"))
             .set("frontPage", path.resolve(__dirname, "./src/frontPage"))
             .set("managePage", path.resolve(__dirname, "./src/managePage"))
             .set("front", path.resolve(__dirname, "./src/frontPage/src"))
-            .set("manage", path.resolve(__dirname, "./src/managePage/src"));
+            .set("manage", path.resolve(__dirname, "./src/managePage/src"))
+            .set("common", path.resolve(__dirname, "./src/common"));
         config.resolve.extensions.add('tsx');
         // 添加自定义模块库
         // config.resolve.modules.prepend(path.resolve(__dirname, 'local_modules'));

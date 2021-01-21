@@ -1,7 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import view from '../views/viewPage'
-// import config from '../views/configPage.vue'
-import select from '../views/selectPage.vue'
+import view from '../views/viewPage/viewPage'
+import config from '../views/configPage/configPage'
+import select from '../views/selectPage/selectPage'
+import bannerContent from '../components/selectPage/bannerContent/bannerContent'
+import cutDown from '../components/selectPage/cutDown/cutDown'
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -9,8 +11,21 @@ const routes: Array<RouteRecordRaw> = [
         components: {
             default: select,
             view,
-            config: () => import('../views/configPage.vue')
-        }
+            config
+        },
+        children: [
+            {
+                path: '/a',
+                name: 'banner',
+                component: bannerContent
+            },
+            {
+                path: '/b',
+                name: 'cutdown',
+                component: cutDown
+            }
+        ]
+
     }
 ]
 

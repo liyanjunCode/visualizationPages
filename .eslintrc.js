@@ -12,8 +12,10 @@ module.exports = {
         ecmaVersion: 2020
     },
     rules: {
-        'no-console':'off',
+        'no-console': 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'vue/no-multiple-template-root': 'off'
+        'vue/no-multiple-template-root': 'off',
+        '@typescript-eslint/class-name-casing': 'off',
+        '@typescript-eslint/member-delimiter-style': 'off',
     }
 }
