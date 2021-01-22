@@ -10,7 +10,7 @@ if (fs.existsSync(dirPath)) {
     fs.unlink(dirPath, () => { });
 }
 const getOpenPage = () => {
-    return flag == "front" ? "frontPage.html/" : "managePage.html/" ;
+    return flag == "front" ? "frontPage.html/" : "managePage.html/";
 }
 //  本地服务采用多页面运行
 const nameList = process.env.NODE_ENV == "production" ? [`${flag}Page`] : ["frontPage", "managePage"];
@@ -21,7 +21,7 @@ const getMultyPage = () => {
     let outputDir = "";
     nameList.forEach(item => {
         pages[item] = {
-            entry: path.resolve(__dirname, `../src/${item}/main.ts`),
+            entry: path.resolve(__dirname, `../src/${item}/main.js`),
             template: path.resolve(__dirname, "../public/index.html"),
             filename: `${item}.html`
         };

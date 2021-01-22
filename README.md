@@ -1,4 +1,4 @@
-# vue-laster
+# vue3-demo1
 
 ## Project setup
 ```
