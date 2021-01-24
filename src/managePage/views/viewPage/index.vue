@@ -1,10 +1,8 @@
 <template>
   <div class="view">
-    <banner
-      v-for="(item, index) in pageData"
-      :key="index"
-      data="{item.data}"
-    ></banner>
+    <div class="wrap" v-for="(item, index) in pageData" :key="index" @click="handlerClick(item, index)">
+        <banner v-if="item.template === 'banner_template'" :data="item.data" :config="item.config"></banner>
+    </div>
   </div>
 </template>
 <script>
@@ -15,11 +13,18 @@ export default defineComponent({
   setup () {
     const store = useStore();
     const pageData = reactive(computed(() => { return store.state.pageData }));
+    const handlerClick = (item, index) => {
+      store.commit("SET_CONFIG", {
+        item,
+        index
+      })
+    }
     return {
-      pageData
+      pageData,
+      handlerClick
     }
   },
-  components: getComponent()
+  components: getComponent("@/common/component")
 })
 </script>
 <style lang="scss">

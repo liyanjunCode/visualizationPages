@@ -12,7 +12,7 @@ export default defineComponent({
 
     }
   },
-  components: getComponent()
+  components:  getComponent("@/common/component")
 })
 </script>
 <style lang="scss">
