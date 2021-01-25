@@ -1,41 +1,70 @@
 <template>
   <div>
-    <!-- <input-component head-title="标题设置" flag="title" :default-value="item.title" @onClick="clickHandler"></input-component>
-    <input-component head-title="图片地址" flag="pic" :default-value="item.pic" @onClick="clickHandler"></input-component>
-    <input-component head-title="跳转地址" flag="url" :default-value="item.url" @onClick="clickHandler"></input-component>
-    <input-component head-title="内容描述" flag="des" :default-value="item.des" @onClick="clickHandler"></input-component> -->
+    <div class="set-title">
+      <h2>标题设置</h2>
+      <input-color title="字体颜色" v-model="titleColor"></input-color>
+      <input-size title="字体大小" v-model="titleSize"></input-size>
+      <input-size title="行高尺寸" v-model="titleLineHeight"></input-size>
+    </div>
+    <div class="set-title">
+      <h2>描述设置</h2>
+      <input-color title="字体颜色" v-model="titleColor"></input-color>
+      <input-size title="字体大小" v-model="desSize"></input-size>
+      <input-size title="行高尺寸" v-model="desLineHeight"></input-size>
+    </div>
+    <a-button type="primary" size="large" @click="setStyle">确定</a-button>
   </div>
 </template>
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, reactive, toRefs } from 'vue';
 import { useStore } from 'vuex'
-// import inputComponent from "../inputComponent/index"
+import inputColor from "../inputColor/index";
+import inputSize from "../inputSize/index";
 // 按需加载组件
 export default defineComponent({
   props: {
-    item:{
+    config: {
       type: Object,
-      default: () => {}
-    },
-    index: Number
+      default: () => { }
+    }
   },
-  setup (props) {
+  setup () {
     const store = useStore();
-    const clickHandler = ({ value, flag }) => {
-      store.commit('SET_BANNER_DETAIL',{
-        index:props.index,
-        item: {[flag]: value}
+    const state = reactive({
+      titleColor: '#ccc',
+      desColor: '#ccc',
+      titleSize: '20px',
+      desSize: '20px',
+      titleLineHeight: '20px',
+      desLineHeight: '20px'
+    })
+    const setStyle = () => {
+      store.commit("SET_BANNER_STYLE", {
+        title: {
+          color: state.titleColor,
+          'font-size': state.titleSize,
+          'line-height': state.titleLineHeight
+        },
+        des: {
+          color: state.desColor,
+          'font-size': state.desSize,
+          'line-height': state.desLineHeight
+        }
       })
     }
     return {
-      clickHandler
+      setStyle,
+      ...toRefs(state)
     }
   },
   components: {
-    // inputComponent
+    inputColor,
+    inputSize
   }
 })
 </script>
 <style lang="scss" scoped>
-
+h2 {
+  font-size: 20px;
+}
 </style>

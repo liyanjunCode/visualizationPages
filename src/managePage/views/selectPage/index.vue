@@ -1,6 +1,6 @@
 <template>
   <div class="select">
-    <a-button 
+    <a-button
       v-for="(item, index) in data"
       :key="index"
       type="primary"
@@ -20,15 +20,15 @@ export default defineComponent({
     const store = useStore();
     const data = [
       { name: 'banner图', tem: "banner_template" },
-      { name: '轮播图', tem: "loop_template" },
-      { name: '单张图', tem: "onPic_template" },
-      { name: '双张图', tem: "twoPic_template" },
+      //   { name: '轮播图', tem: "loop_template" },
+      //   { name: '单张图', tem: "onPic_template" },
+      //   { name: '双张图', tem: "twoPic_template" },
     ]
     // 点击添加模板
     const handlerClick = (item) => {
-        store.commit("ADD_DATA", {
-          template:item.tem
-        })
+      store.commit("ADD_DATA", {
+        template: item.tem
+      })
     }
     return {
       data,

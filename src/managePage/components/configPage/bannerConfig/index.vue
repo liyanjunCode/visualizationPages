@@ -2,15 +2,17 @@
   <div class="banner">
     <div class="content">
       <h2 class="title">内容设置</h2>
-      <div class="content-wrap"  v-for="(item, index) in data" :key="item.pic">
+      <div class="content-wrap" v-for="(item, index) in data" :key="item.pic">
         <div>
-          <p>内容{{index+1}}</p>
-          <banner-content :item ="item" :index="index"></banner-content>
+          <p>内容{{ index + 1 }}</p>
+          <banner-content :item="item" :index="index"></banner-content>
         </div>
       </div>
-      <a-button type="primary" size="large" @click="addContent">添加内容</a-button>
+      <a-button type="primary" size="large" @click="addContent"
+        >添加内容</a-button
+      >
     </div>
-   <div class="config">
+    <div class="config">
       <h2 class="title">样式设置</h2>
       <banner-style :config="config"></banner-style>
     </div>
@@ -25,8 +27,8 @@ import { useStore } from 'vuex'
 export default defineComponent({
   props: {
     configData: {
-      type:Object,
-      default: () =>{}
+      type: Object,
+      default: () => { }
     }
   },
   setup (props) {
@@ -35,7 +37,7 @@ export default defineComponent({
     const addContent = () => {
       store.commit("SET_BANNER_CONTENT", {
         template: "banner_template",
-        index:curIndex.value
+        index: curIndex.value
       })
     }
     return {
@@ -52,7 +54,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .title {
-  padding-top: 20px;
+  padding: 20px 0;
   font-weight: bold;
   color: #000;
   font-size: 30px;

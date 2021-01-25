@@ -1,7 +1,20 @@
 <template>
   <div class="view">
-    <div class="wrap" v-for="(item, index) in pageData" :key="index" @click="handlerClick(item, index)">
-        <banner v-if="item.template === 'banner_template'" :data="item.data" :config="item.config"></banner>
+    <div
+      class="wrap"
+      v-for="(item, index) in pageData"
+      :key="index"
+      @click="handlerClick(item, index)"
+    >
+      <dealViewComponent
+        @click="dealViewComponent"
+        :index="index"
+      ></dealViewComponent>
+      <banner
+        v-if="item.template === 'banner_template'"
+        :data="item.data"
+        :config="item.config"
+      ></banner>
     </div>
   </div>
 </template>
@@ -9,10 +22,14 @@
 import { defineComponent, computed, reactive } from 'vue';
 import { useStore } from 'vuex'
 import getComponent from "../../../common/assets/js/import"
+import dealViewComponent from "../../components/dealViewComponent/index"
 export default defineComponent({
   setup () {
     const store = useStore();
     const pageData = reactive(computed(() => { return store.state.pageData }));
+    const dealViewComponent = (item) => {
+      store.commit("DEAL_VIEW_COMPONENT", item)
+    }
     const handlerClick = (item, index) => {
       store.commit("SET_CONFIG", {
         item,
@@ -21,10 +38,14 @@ export default defineComponent({
     }
     return {
       pageData,
-      handlerClick
+      handlerClick,
+      dealViewComponent
     }
   },
-  components: getComponent("@/common/component")
+  components: {
+    dealViewComponent,
+    ...getComponent("@/common/component")
+  }
 })
 </script>
 <style lang="scss">
@@ -32,5 +53,8 @@ export default defineComponent({
   width: 375px;
   height: 1500px;
   overflow-y: auto;
+  .wrap {
+    position: relative;
+  }
 }
 </style>
