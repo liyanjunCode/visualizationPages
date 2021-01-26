@@ -2,15 +2,15 @@
   <div>
     <div class="set-title">
       <h2>标题设置</h2>
-      <input-color title="字体颜色" v-model="titleColor"></input-color>
-      <input-size title="字体大小" v-model="titleSize"></input-size>
-      <input-size title="行高尺寸" v-model="titleLineHeight"></input-size>
+      <input-color title="字体颜色" v-model="title.titleColor"></input-color>
+      <input-size title="字体大小" v-model="title.titleSize"></input-size>
+      <input-size title="行高尺寸" v-model="title.titleLineHeight"></input-size>
     </div>
     <div class="set-title">
       <h2>描述设置</h2>
-      <input-color title="字体颜色" v-model="titleColor"></input-color>
-      <input-size title="字体大小" v-model="desSize"></input-size>
-      <input-size title="行高尺寸" v-model="desLineHeight"></input-size>
+      <input-color title="字体颜色" v-model="des.titleColor"></input-color>
+      <input-size title="字体大小" v-model="des.desSize"></input-size>
+      <input-size title="行高尺寸" v-model="des.desLineHeight"></input-size>
     </div>
     <a-button type="primary" size="large" @click="setStyle">确定</a-button>
   </div>
@@ -30,26 +30,24 @@ export default defineComponent({
   },
   setup () {
     const store = useStore();
+    // 样式未修改的都走默认样式
     const state = reactive({
-      titleColor: '#ccc',
-      desColor: '#ccc',
-      titleSize: '20px',
-      desSize: '20px',
-      titleLineHeight: '20px',
-      desLineHeight: '20px'
+      title: {
+        titleColor: '#ccc',
+        titleSize: '20px',
+        titleLineHeight: '20px',
+      },
+      des: {
+        desColor: '#ccc',
+        desSize: '20px',
+        desLineHeight: '20px'
+      }
     })
+    // 提交样式修改结果
     const setStyle = () => {
       store.commit("SET_BANNER_STYLE", {
-        title: {
-          color: state.titleColor,
-          'font-size': state.titleSize,
-          'line-height': state.titleLineHeight
-        },
-        des: {
-          color: state.desColor,
-          'font-size': state.desSize,
-          'line-height': state.desLineHeight
-        }
+        title: state.title,
+        des: state.des
       })
     }
     return {

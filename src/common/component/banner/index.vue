@@ -29,6 +29,7 @@
 </template>
 <script>
 import { defineComponent, computed } from 'vue';
+import { spliceStyle } from "@/common/assets/js/utils.js"
 export default defineComponent({
   props: {
     // banner数据
@@ -42,11 +43,6 @@ export default defineComponent({
     config: Object
   },
   setup (props, { emit }) {
-    const spliceStyle = (obj) => {
-      return Object.keys(obj).map(key => {
-        return `${key}:${obj[key]}`
-      }).join(";")
-    }
     const titleStyle = computed(() => {
       return spliceStyle(props.config.style.title)
     });

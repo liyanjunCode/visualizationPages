@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { deepCopy } from "@/managePage/assets/js/utils.js"
 import * as types from "./types.js"
 const defaultContent = {
     'banner_template': {
@@ -12,7 +13,7 @@ const defaultData = {
     'banner_template': {
         template: 'banner_template',
         data: [
-            defaultContent['banner_template']
+            deepCopy(defaultContent['banner_template'])
         ],
         config: {
             'show-indicators': true,
@@ -51,8 +52,7 @@ export default createStore({
         * 
         */
         [types.ADD_DATA] (state, { template }) {
-            state.pageData.push(defaultData[template]);
-            console.log(state.pageData.length)
+            state.pageData.push(deepCopy(defaultData[template]));
         },
         /* 
        * 选定要修改的内容
@@ -64,12 +64,12 @@ export default createStore({
             state.curIndex = index;
         },
         /* 
-        * 设置banner轮播图
+        * 增加banner轮播图
         *
         * 
         */
         [types.SET_BANNER_CONTENT] (state, { template, index }) {
-            state.pageData[index]['data'].push(defaultContent[template]);
+            state.pageData[index]['data'].push(deepCopy(defaultContent[template]));
         },
         /* 
         * 设置banner组件轮播图的内容
@@ -78,7 +78,6 @@ export default createStore({
         */
         [types.SET_BANNER_DETAIL] (state, { item, index }) {
             Object.assign(state.pageData[state.curIndex]['data'][index], item);
-            console.log(state.pageData[state.curIndex], "state.pageData[state.curIndex")
         },
         [types.SET_BANNER_STYLE] (state, item) {
             Object.assign(state.pageData[state.curIndex].config.style, item);
@@ -95,7 +94,7 @@ export default createStore({
                     state.curIndex = index - 1;
                     break;
                 case 'down':
-                    if (index === len) { return }
+                    if (index === len - 1) { return }
                     replaceItem = state.pageData[index + 1];
                     state.pageData[index + 1] = state.pageData[index];
                     state.pageData[index] = replaceItem;

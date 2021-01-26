@@ -5,9 +5,9 @@ module.exports = {
         require('autoprefixer'),
         px2rem({
             viewportWidth: 750,
-            viewportHeight: 1350,
+            viewportHeight: 1550,
             unitPrecision: 5,    // 转换精度
-            viewportUnit: 'vw',  // 转换单位
+            // viewportUnit: 'vw',  // 转换单位
             exclude: /managePage/,  // 管理系统 选择和配置页面忽略转化
             selectorBlackList: [], // 忽略转换的模块
             propWhiteList: [],  //默认值是一个空数组，这意味着禁用白名单并启用所有属性。

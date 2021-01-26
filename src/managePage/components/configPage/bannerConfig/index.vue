@@ -34,6 +34,8 @@ export default defineComponent({
   setup (props) {
     const store = useStore();
     const curIndex = computed(() => { return store.state.curIndex; })
+    const data = computed(() => { return props.configData.data; })
+    const config = computed(() => { return props.configData.config; })
     const addContent = () => {
       store.commit("SET_BANNER_CONTENT", {
         template: "banner_template",
@@ -41,8 +43,8 @@ export default defineComponent({
       })
     }
     return {
-      data: props.configData.data,
-      config: props.configData.config,
+      data,
+      config,
       addContent
     }
   },
